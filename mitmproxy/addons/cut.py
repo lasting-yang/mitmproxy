@@ -13,7 +13,7 @@ from mitmproxy import command
 from mitmproxy import exceptions
 from mitmproxy import flow
 from mitmproxy.log import ALERT
-
+import binascii
 logger = logging.getLogger(__name__)
 
 
@@ -64,7 +64,7 @@ def extract(cut: str, f: flow.Flow) -> str | bytes:
 def extract_str(cut: str, f: flow.Flow) -> str:
     ret = extract(cut, f)
     if isinstance(ret, bytes):
-        return repr(ret)
+        return binascii.b2a_hex(ret).decode()
     else:
         return ret
 
